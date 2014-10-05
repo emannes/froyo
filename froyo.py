@@ -6,7 +6,7 @@ def getNearest(lat, long):
     pass
 
 def getdist(lat, long, froyolat, froyolong):
-    pass
+    return math.acos(math.sin(lat)*math.sin(froyolat) + math.cos(lat) * math.cos(froyolat) * math.fabs(froyolong - froyolat))
 
 def colder(username):
     api_token = '1a2131b6-573f-95bb-b12e-0e2d0b7486e8'
