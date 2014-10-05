@@ -1,12 +1,20 @@
 import requests
 import sqlite3
+import simplejson
+import urllib
+from googlemaps import GoogleMaps
 
 
 def getNearest(lat, long):
-    pass
+    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+str(lat)+","+str(long)+"&radius=50000&keyword=froyo&rankby=distance&key=AIzaSyCf4chQsasbHzMsEIS_5xGUYczXcraKSgU"
+    results = json.load(urllib.urlopen(url))
+    result = results["results"][0]["geometry"]["location"]
+    return result[lat], result[lng]
+    #AIzaSyCf4chQsasbHzMsEIS_5xGUYczXcraKSgU
 
 def getdist(lat, long, froyolat, froyolong):
-    return math.acos(math.sin(lat)*math.sin(froyolat) + math.cos(lat) * math.cos(froyolat) * math.fabs(froyolong - froyolat))
+    return 2 * math.asin(math.sqrt(math.sin((lat - froyolat) / 2) * math.sin((lat - froyolat) / 2) + math.cos(froyolat) * math.cos(lat) * math.sin((froyolong - long) / 2) * math.sin((froyolong - long) / 2)))
+    
 
 def colder(username):
     api_token = '1a2131b6-573f-95bb-b12e-0e2d0b7486e8'
